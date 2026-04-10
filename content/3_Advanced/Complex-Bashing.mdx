@@ -6,32 +6,44 @@ description: Bashing geometry problems using complex numbers
 prerequisites: ["complex-numbers", "complex-geometry"]
 ---
 
+<!-- Based on https://web.evanchen.cc/handouts/cmplx/en-cmplx.pdf -->
+
 ## Overview
 
+<!-- WIP -->
 - Complex bashing provides a way to solve geometry problems purely using the complex plane and numbers.
 
 ## Key Ideas
 
+<!-- WIP -->
 - $z=re^{i\theta}$ with $r=|z|$ and argument $\theta$.
 - $n$th roots of unity satisfy $z^n=1$ and are evenly spaced on the unit circle.
 - Multiplication rotates and scales points in the plane.
 
-## Core Skills
+## Core Concepts
 
 <!-- Add some reference to previous modules -->
-(note: for the below we will use symbols used from the previous modules in complex numbers. If in )
+(note: for the below we will use symbols used from the previous modules in complex numbers. If not sure, consult the previous modules.)
 
-### Switch Between Forms
+### Perpendicular Lines
 
-Use $z=a+bi$ for algebra and $z=re^{i\theta}$ for powers and rotations.
+Let $A, B, C, D$ be pairwise distinct points. Then $\overline{AB} \perp \overline{CD}$ if and only if $\frac{d-c}{b-a} \in i\Re$; i.e.
+$$\frac{d-c}{b-a}+\overline{\frac{d-c}{b-a}}=0$$
 
-### Use Conjugates and Modulus
+### Collinear Points
 
-Apply $z\overline{z}=|z|^2$ to eliminate imaginary parts or compute lengths.
+Let $A, B, C$ be pairwise distinct points. Then $A, B, C$ are collinear if and only if $\frac{c-a}{c-b} \in \Re$; i.e.
+$$\frac{c-a}{c-b} = \overline{\frac{c-a}{c-b}}$$
 
-### Use De Moivre
+### Concyclic Points
 
-Compute powers and roots quickly using $r^n e^{in\theta}$.
+Let $A, B, C, D$ be pairwise distinct points. Then $A, B, C, D$ are concyclic if and only if
+$$\frac{c-a}{c-b} : \frac{d-a}{d-b} \in \Re$$
+
+### Reflection across line
+
+Let $W$ be the reflection of Z across $\overline{AB}$. Then,
+$$w=\frac{(a-b)\overline{z} + \overline{a} b-a\overline{b}}{\overline{a} \overline{b}}$$
 
 ## Worked Example
 
