@@ -46,7 +46,21 @@ $$\frac{c-a}{c-b} : \frac{d-a}{d-b} \in \Re$$
 
 Let $W$ be the reflection of Z across $\overline{AB}$. Then,
 
-$$w=\frac{(a-b)\overline{z} + \overline{a} b-a\overline{b}}{\overline{a} \overline{b}}$$
+$$w=\frac{(a-b)\overline{z} + \overline{a} b-a\overline{b}}{\overline{a} - \overline{b}}$$
+
+### Complex Shoelace
+
+Let $A, B, C$ be points. Then $\triangle ABC$ has signed area  
+
+$$ \frac{i}{4}
+\begin{vmatrix}
+  a & \overline{a} & 1 \\
+  b & \overline{b} & 1 \\
+  c & \overline{c} & 1 \\
+\end{vmatrix}
+= \frac{i}{4} |a \oveline{b} + b \overline{c} + c \overline{a} - \overline{a} b - \overline{b} c - \overline{c} a|$$
+
+Also, $A, B, C$ are collinear if and only if this determinant vanishes (i.e. $=0$).
 
 ## Worked Example
 
