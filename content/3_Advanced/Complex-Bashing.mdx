@@ -58,9 +58,43 @@ $$ \frac{i}{4}
   b & \overline{b} & 1 \\
   c & \overline{c} & 1 \\
 \end{vmatrix}
-= \frac{i}{4} |a \oveline{b} + b \overline{c} + c \overline{a} - \overline{a} b - \overline{b} c - \overline{c} a|$$
+= \frac{i}{4} |a \overline{b} + b \overline{c} + c \overline{a} - \overline{a} b - \overline{b} c - \overline{c} a|$$
 
 Also, $A, B, C$ are collinear if and only if this determinant vanishes (i.e. $=0$).
+
+### Unit Circle
+
+On a unit circle, since $|z| = 1$, $\overline{z}=\frac{1}{z}$
+
+#### Relfection across a chord
+
+If $|a| = |b| = 1$ and $z \in C$, then the reflection of $Z$ across $\overline{AB}$ is $a+b-ab\overline{z}$, and the foot from $Z$ to $\overline{AB}$ is
+
+$$\frac{1}{2} (z + a + b - ab\overline{z})$$
+
+#### Intersection of two chords
+
+If $A, B, C, D$ lie on the unit circle then the intersection of $\overline{AB}$ and $\overline{CD}$ is given by
+
+$$\frac{ab(c+d)-cd(a+b)}{ab-cd}$$
+
+#### Triangle Centers
+
+Let $ABC$ be a triangle, and assume that the circumcircle of $ABC$ coincides with the unit circle of the complex plane.
+Then the circumcenter, centroid, and orthocenter of $ABC$ is $0, \frac{1}{3} (a+b+c), a+b+c$ respectively.
+
+#### Incenter
+
+Let triangle $ABC$ have incenter $I$ and circumcircle $\Gamma$.Lines $AI,BI,CI$ meet $\Gamma$ again at $D,E,F$. 
+If $\Gamma$ is the unit circle of the complex plane then there exists $x, y, z \in C$ satisfying
+
+$$a=x^2, b=y^2, c = z^2$$
+and
+$$d=-yz, e=-zx, f=-xy$$
+
+Note that: $|x|=|y|=|z|=1$. Moreover, the incenter $I$ is given by $-(xy+yz+zx)$
+
+<!-- From here on, it is incomplete -->
 
 ## Worked Example
 
