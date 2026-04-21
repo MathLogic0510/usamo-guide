@@ -18,8 +18,14 @@ combinatorics.
 
 ## Key Ideas
 
-- **Permutation**: an ordered arrangement. $P(n, r) = \frac{n!}{(n-r)!}$.
+- The factorial of a non-negative integer $n$ is $n! = n(n-1)(n-2)...2 \cdot 1$
+  - Useful identity: $n! = n \cdot (n-1)!$
+- **Permutation**: an ordered arrangement. $P(n, r) = \frac{n!}{(n-r)!}$. 
+  - Can also be rewritten as $P(n, r) = n(n-1)(n-2)...(n-r+1)$
+  - Note: Instead of $P(n, r)$ it can be written in other ways, such as $^n P_r$ and $_n P_r$ but 
+they represent the same thing
 - **Combination**: an unordered selection. $\binom{n}{r} = \frac{n!}{r!(n-r)!}$.
+  - Can also be writte
 - If rearranging the chosen items creates a "different" outcome, use
   permutations. If not, use combinations.
 - $\binom{n}{r} = \binom{n}{n-r}$ (choosing what to include = choosing what to
