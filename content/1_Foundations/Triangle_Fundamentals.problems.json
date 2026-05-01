@@ -1,4 +1,20 @@
 {
   "MODULE_ID": "triangle-fundamentals",
-  "practice": []
+  "practice": [
+    {
+      "uniqueId": "mastering-amc8-24-6-14",
+      "name": "Problem 24.6.14 (Mastering AMC 8)",
+      "url": "https://www.omegalearn.org/mastering-amc8",
+      "source": "Mastering AMC 8",
+      "difficulty": "Medium",
+      "isStarred": false,
+      "tags": [
+        "Triangles"
+      ],
+      "statement": "What is the radius of a circle inscribed in a triangle with side lengths 6, 8, and 10?",
+      "solutionMetadata": {
+        "kind": "none"
+      }
+    }
+  ]
 }
