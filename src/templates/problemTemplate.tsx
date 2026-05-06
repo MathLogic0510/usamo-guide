@@ -91,7 +91,7 @@ function templateNodeToProblemInfo(node: ProblemTemplateNode): ProblemInfo {
     isStarred: node.isStarred,
     tags: [...node.tags],
     solution: node.solution as ProblemInfo['solution'],
-    statement: node.statement ?? undefined,
+    statement: node.statement ?? '',
     author: node.author ?? undefined,
     interaction: graphqlInteraction(node.interaction),
     solutionReveal: graphqlSolutionReveal(node.solutionReveal, node.url),
@@ -174,6 +174,32 @@ export default function ProblemTemplate(
         title={`${node.name} — ${node.source}`}
         image={null}
         pathname={props.path}
+        structuredData={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://www.usamoguide.com/',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Problems',
+                item: 'https://www.usamoguide.com/problems/',
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: node.name,
+                item: `https://www.usamoguide.com${props.path}`,
+              },
+            ],
+          },
+        ]}
       />
       <div
         data-page-tone="dark"
@@ -257,7 +283,7 @@ export default function ProblemTemplate(
             >
               Problem
             </h2>
-            <ProblemStatementMarkdown>{node.statement}</ProblemStatementMarkdown>
+            <ProblemStatementMarkdown>{node.statement ?? ''}</ProblemStatementMarkdown>
           </section>
 
           {problem.interaction.type === 'integer' && (

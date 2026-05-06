@@ -19,7 +19,7 @@ export default function AuthCallbackPage(): JSX.Element {
 
   return (
     <Layout>
-      <SEO title="Signing you in" image={null} pathname="/auth/callback" />
+      <SEO title="Signing you in" image={null} pathname="/auth/callback" noIndex />
       <div className="mx-auto flex min-h-[40vh] max-w-3xl items-center justify-center px-4 py-16">
         <p className="text-center text-lg text-gray-700 dark:text-gray-300">
           Finishing sign-in...

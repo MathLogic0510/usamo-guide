@@ -57,6 +57,7 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'quadratic-formula',
         'substitution-techniques',
         'geometric-sequences',
+        'telescoping-basics',
       ],
     },
     {
@@ -81,20 +82,21 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'similarity-basics',
         'proportionality-thales',
         'line-equations',
+        'three-d-geometry-basics',
       ],
     },
     {
       name: 'Number Theory',
       description: 'Primes, divisibility, modular arithmetic, and integer properties.',
       items: [
-        'primes-and-composites',
-        'prime-factorization',
+        'divisibility-primes',
         'divisibility-rules',
         'gcd-and-lcm',
         'divisor-counting-formulas',
         'modular-arithmetic-intro',
         'units-digit-periodicity',
         'base-number-systems',
+        'miscellaneous-number-theory',
 
         // shifted
         'linear-diophantine-equations',
@@ -112,6 +114,8 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'geometric-probability-intro',
         'inclusion-exclusion',
         'stars-and-bars',
+        'geometric-counting',
+        'recursion-basics',
 
         // shifted
         'pascals-triangle-binomial-theorem',

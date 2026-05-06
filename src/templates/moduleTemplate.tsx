@@ -1,7 +1,6 @@
 import { graphql, navigate } from 'gatsby';
 import * as React from 'react';
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { SECTION_LABELS } from '../../content/ordering';
 import { ContentAccessModal } from '../components/ContentAccessModal';
 import Layout from '../components/layout';
@@ -60,31 +59,33 @@ export default function Template(props): JSX.Element {
         description={module.description}
         image={null}
         pathname={props.path}
-      />
-      <Helmet>
-        <script type="application/ld+json">{`
+        structuredData={[
           {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [{
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://usamo.guide/"
-            },{
-              "@type": "ListItem",
-              "position": 2,
-              "name": "${SECTION_LABELS[module.section]}",
-              "item": "https://usamo.guide/${module.section}"
-            },{
-              "@type": "ListItem",
-              "position": 3,
-              "name": "${module.title}",
-              "item": "https://usamo.guide/${module.section}/${module.id}"
-            }]
-          }
-        `}</script>
-      </Helmet>
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: 'https://www.usamoguide.com/',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: SECTION_LABELS[module.section],
+                item: `https://www.usamoguide.com/${module.section}`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: module.title,
+                item: `https://www.usamoguide.com/${module.section}/${module.id}`,
+              },
+            ],
+          },
+        ]}
+      />
 
       <div
         data-page-tone="dark"

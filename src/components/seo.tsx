@@ -3,6 +3,36 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+type JsonLdEntry = Record<string, unknown>;
+
+type SEOProps = {
+  description?: string;
+  lang?: string;
+  meta?: Array<Record<string, unknown>>;
+  image?: {
+    src: string;
+    height: number;
+    width: number;
+  } | null;
+  title?: string | null;
+  pathname?: string;
+  noIndex?: boolean;
+  structuredData?: JsonLdEntry | JsonLdEntry[];
+};
+
+function normalizePathname(pathname?: string): string | null {
+  if (!pathname) {
+    return null;
+  }
+
+  const cleanPathname = pathname.split(/[?#]/)[0];
+  if (!cleanPathname) {
+    return null;
+  }
+
+  return cleanPathname.startsWith('/') ? cleanPathname : `/${cleanPathname}`;
+}
+
 function SEO({
   description,
   lang = 'en',
@@ -10,16 +40,21 @@ function SEO({
   image: metaImage,
   title,
   pathname,
-}) {
+  noIndex = false,
+  structuredData = [],
+}: SEOProps) {
   const { site, image: defaultImage } = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
           title
+          siteName
           description
           author
           keywords
           siteUrl
+          locale
+          twitterUsername
         }
       }
       image: file(relativePath: { eq: "social-media-image.jpg" }) {
@@ -37,13 +72,58 @@ function SEO({
     metaImage = defaultImage.childImageSharp.resize;
   }
 
+  const siteUrl = site.siteMetadata.siteUrl.replace(/\/$/, '');
   const metaDescription = description || site.siteMetadata.description;
+  const metaTags = (meta ?? []) as Array<{
+    name?: string;
+    property?: string;
+    content?: unknown;
+  }>;
   const image =
     metaImage && metaImage.src
-      ? `${site.siteMetadata.siteUrl}${metaImage.src}`
+      ? `${siteUrl}${metaImage.src}`
       : null;
-  const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null;
-  const normalizedCanonical = canonical || site.siteMetadata.siteUrl;
+  const normalizedPathname = normalizePathname(pathname);
+  const canonical = normalizedPathname ? new URL(normalizedPathname, siteUrl).toString() : null;
+  const normalizedCanonical = canonical || siteUrl;
+  const metaRobots = noIndex
+    ? 'noindex,nofollow,noarchive'
+    : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+  const structuredDataEntries: JsonLdEntry[] = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      '@id': `${siteUrl}#organization`,
+      name: site.siteMetadata.siteName || site.siteMetadata.title,
+      url: siteUrl,
+      logo: `${siteUrl}/images/cropped_circle_image.png`,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#website`,
+      url: siteUrl,
+      name: site.siteMetadata.siteName || site.siteMetadata.title,
+      description: site.siteMetadata.description,
+      inLanguage: site.siteMetadata.locale || lang,
+      publisher: {
+        '@id': `${siteUrl}#organization`,
+      },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      '@id': `${normalizedCanonical}#webpage`,
+      url: normalizedCanonical,
+      name: title || site.siteMetadata.title,
+      description: metaDescription,
+      inLanguage: site.siteMetadata.locale || lang,
+      isPartOf: {
+        '@id': `${siteUrl}#website`,
+      },
+    },
+    ...(Array.isArray(structuredData) ? structuredData : [structuredData]).filter(Boolean),
+  ];
   return (
     <Helmet
       htmlAttributes={{
@@ -84,16 +164,32 @@ function SEO({
           content: `website`,
         },
         {
+          property: `og:site_name`,
+          content: site.siteMetadata.siteName || site.siteMetadata.title,
+        },
+        {
+          property: `og:locale`,
+          content: site.siteMetadata.locale || 'en_US',
+        },
+        {
           property: `og:url`,
           content: normalizedCanonical,
         },
         {
           name: `robots`,
-          content: `index,follow`,
+          content: metaRobots,
+        },
+        {
+          name: `googlebot`,
+          content: metaRobots,
         },
         {
           name: `twitter:creator`,
           content: site.siteMetadata.author,
+        },
+        {
+          name: `twitter:site`,
+          content: site.siteMetadata.twitterUsername || site.siteMetadata.author,
         },
         {
           name: `twitter:url`,
@@ -139,7 +235,12 @@ function SEO({
                 },
               ]
         )
-        .concat(meta)}
+        .concat(metaTags as any)}
+          script={structuredDataEntries.map((schema, index) => ({
+            type: 'application/ld+json',
+            key: `jsonld-${index}`,
+            children: JSON.stringify(schema),
+          }))}
     />
   );
 }
@@ -147,12 +248,19 @@ SEO.defaultProps = {
   lang: `en`,
   meta: [],
   description: ``,
+      noIndex: false,
+      structuredData: [],
 };
 SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
+      noIndex: PropTypes.bool,
+      structuredData: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.arrayOf(PropTypes.object),
+      ]),
   image: PropTypes.shape({
     src: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,

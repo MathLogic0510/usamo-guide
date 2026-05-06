@@ -9,6 +9,7 @@ import { ProgressTrackingFeature } from '../components/Index/features/ProgressTr
 import { ResourcesFeature } from '../components/Index/features/ResourcesFeature';
 import AetherFlowHero from '../components/Index/AetherFlowHero';
 import ActiveCardsHome from '../components/activeCardsHome';
+import TestimonialsSection from '../components/TestimonialsSection';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import TopNavigationBar from '../components/TopNavigationBar/TopNavigationBar';
@@ -289,17 +290,17 @@ export default function IndexPage({ path }): JSX.Element {
               >
                 <span className="mb-4 block md:mb-8">
                   Ask questions, share solutions, and learn from other contest students
-                  in the AoPS community.
+                  in our Discord community.
                 </span>
 
 
                 <a
-                  href="https://artofproblemsolving.com/community"
+                  href="https://discord.gg/X2zx6u53XH"
                   target="_blank"
                   rel="noreferrer"
                   style={linkStyle}
                 >
-                  Visit AoPS Community →
+                  Visit Discord Community →
                 </a>
               </Feature>
             </div>
@@ -351,10 +352,10 @@ export default function IndexPage({ path }): JSX.Element {
               <div className="grid items-center gap-10 lg:grid-cols-12">
                 <div className="lg:col-span-7">
                   <h2
-                    className="max-w-3xl text-left text-4xl font-bold tracking-tight md:text-5xl 2xl:text-6xl"
+                    className="max-w-3xl text-left text-3xl font-bold tracking-tight md:text-4xl 2xl:text-5xl"
                     style={{ color: TEXT_PRIMARY }}
                   >
-                    Join our Team.
+                    Contribute to the Community.
                   </h2>
                   <div className="h-5"></div>
                   <p
@@ -379,7 +380,7 @@ export default function IndexPage({ path }): JSX.Element {
                       '--pme-wipe-bg': '#F0C2FF',
                     } as React.CSSProperties}
                   >
-                    Apply Now
+                    Get Involved
                   </a>
                 </div>
                 <div className="lg:col-span-5">
@@ -428,9 +429,7 @@ export default function IndexPage({ path }): JSX.Element {
                   </dt>
                   <dd className="mt-2">
                     <p className="text-base leading-6" style={{ color: TEXT_SECONDARY }}>
-                      The AMC (8/10/12) and AIME are the main pipeline contests
-                      in the U.S. that culminate in USAMO. For official contest
-                      information and schedules, see the{' '}
+                      The American Mathematics Competitions (AMC) are the foundation of the U.S. math competition pipeline. The AMC 8 is a 25-question competition for middle school students, while the AMC 10/12 are 25-question contests for high school. Top scorers on the AMC 10/12 qualify for the American Invitational Mathematics Examination (AIME), a 15-question proof-based competition. The very top AIME scorers then qualify for the USA Mathematical Olympiad (USAMO) or USA Junior Mathematical Olympiad (USAJMO), representing the pinnacle of American high school mathematics. For official contest information, dates, and registration, visit the{' '}
                       <a
                         href="https://www.maa.org/math-competitions"
                         target="_blank"
@@ -449,9 +448,7 @@ export default function IndexPage({ path }): JSX.Element {
                   </dt>
                   <dd className="mt-2">
                     <p className="text-base leading-6" style={{ color: TEXT_SECONDARY }}>
-                      No. This guide is a community-curated roadmap that
-                      reflects common contest topics and problem-solving
-                      techniques. It does not represent an official syllabus.
+                      No. The USAMO Guide is a community-curated, crowdsourced roadmap created to help learners systematically prepare for the AMC, AIME, and USAMO. It reflects common contest topics, problem-solving techniques, and curriculum design best practices—but it does not represent an official syllabus or endorsement from the MAA. The content is continuously updated based on community feedback and contributions, making it a living resource rather than a static document.
                     </p>
                   </dd>
                 </div>
@@ -461,14 +458,21 @@ export default function IndexPage({ path }): JSX.Element {
                   </dt>
                   <dd className="mt-2">
                     <p className="text-base leading-6" style={{ color: TEXT_SECONDARY }}>
-                      If you encounter an issue while using the guide (website
-                      bug, typo, broken link, unclear explanation, etc), use the
-                      "Contact Us" button. Alternatively, email us at{' '}
+                      We value your feedback! If you encounter any issue while using the guide—whether it's a website bug, typo, broken link, unclear explanation, or confusing problem—please let us know. Click the "Contact Us" button at the top of the page or email us at{' '}
                       <a
                         href="mailto:contact@usamoguide.com"
                         style={linkStyle}
                       >
                         contact@usamoguide.com
+                      </a>
+                      . For technical contributions or bug reports, you can also open an issue on our{' '}
+                      <a
+                        href="https://github.com/usamoguide/usamo-guide"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={linkStyle}
+                      >
+                        GitHub repository
                       </a>
                       .
                     </p>
@@ -476,12 +480,11 @@ export default function IndexPage({ path }): JSX.Element {
                 </div>
                 <div className="mt-6 rounded-2xl p-6 text-left shadow-lg" style={infoCardStyle}>
                   <dt className="text-lg leading-6 font-medium" style={{ color: TEXT_PRIMARY }}>
-                    I'm looking for classes, club curriculum...
+                    I'm looking for classes, club curriculum, or live instruction...
                   </dt>
                   <dd className="mt-2">
                     <p className="text-base leading-6" style={{ color: TEXT_SECONDARY }}>
-                      Check out AoPS classes and community-led study groups, or
-                      join the USAMO Guide study cohorts.
+                      USAMO Guide provides structured self-paced learning material. For live instruction, check out Art of Problem Solving (AoPS) online classes, which offer comprehensive courses taught by experienced competition coaches. You can also join USAMO Guide study groups to learn alongside peers with structured accountability, or participate in our weekly mock contests to practice under realistic competition conditions.
                     </p>
                   </dd>
                 </div>
@@ -493,8 +496,7 @@ export default function IndexPage({ path }): JSX.Element {
                   </dt>
                   <dd className="mt-2">
                     <p className="text-base leading-6" style={{ color: TEXT_SECONDARY }}>
-                      Not at all. The guide is designed to support AMC 8, AMC
-                      10/12, and AIME learners to reach USAMO.
+                      Absolutely not! USAMO Guide is designed for the entire journey from AMC 8 through USAMO/USAJMO. Whether you're a middle schooler preparing for your first AMC 8, a high schooler working toward AIME qualification, or an advanced student aiming for USAMO, this guide has structured content at the right difficulty level for you. Each section starts with foundational concepts and progressively builds to olympiad-level problem-solving, so you can learn at your own pace.
                     </p>
                   </dd>
                 </div>
@@ -504,16 +506,16 @@ export default function IndexPage({ path }): JSX.Element {
                   </dt>
                   <dd className="mt-2">
                     <p className="text-base leading-6" style={{ color: TEXT_SECONDARY }}>
-                      If you get stuck, ask questions in the{' '}
+                      We have multiple ways to help! If you get stuck on a problem or concept, ask questions in our{' '}
                       <a
-                        href="https://artofproblemsolving.com/community"
+                        href="https://discord.gg/X2zx6u53XH"
                         target="_blank"
                         rel="noreferrer"
                         style={linkStyle}
                       >
-                        AoPS community
-                      </a>{' '}
-                      or reach out via the Contact Us button.
+                        Discord community
+                      </a>
+                      {' '}where community members and mentors actively engage. You can also join a study group to learn with peers, connect with a mentor for personalized guidance, or reach out via the Contact Us button for specific questions about the guide itself.
                     </p>
                   </dd>
                 </div>
@@ -523,7 +525,7 @@ export default function IndexPage({ path }): JSX.Element {
                   </dt>
                   <dd className="mt-2">
                     <p className="text-base leading-6" style={{ color: TEXT_SECONDARY }}>
-                      Contributions are welcome! Visit our{' '}
+                      Contributions are essential to making USAMO Guide better for everyone! You can contribute in many ways: suggest edits to explanations, add new problems, fix typos, improve visualizations, or help with code improvements. Visit our{' '}
                       <a
                         href="https://github.com/usamoguide/usamo-guide"
                         target="_blank"
@@ -532,7 +534,7 @@ export default function IndexPage({ path }): JSX.Element {
                       >
                         GitHub repository
                       </a>
-                      to find guidelines and open issues.
+                      {' '}to find detailed contribution guidelines, view open issues, and submit pull requests. All contributions are appreciated and help build a stronger resource for the community!
                     </p>
                   </dd>
                 </div>
@@ -542,7 +544,7 @@ export default function IndexPage({ path }): JSX.Element {
                   </dt>
                   <dd className="mt-2">
                     <p className="text-base leading-6" style={{ color: TEXT_SECONDARY }}>
-                      Yes! Check out our{' '}
+                      Yes! USAMO Guide is fully open source. The entire codebase, content, and infrastructure are freely available on our{' '}
                       <a
                         href="https://github.com/usamoguide/usamo-guide"
                         target="_blank"
@@ -551,7 +553,7 @@ export default function IndexPage({ path }): JSX.Element {
                       >
                         GitHub Repository
                       </a>
-                      .
+                      . This means you can fork it, use it for your own projects, contribute improvements, or learn from how it's built. We believe in transparency and community collaboration, so everything is open for inspection and contribution.
                     </p>
                   </dd>
                 </div>
@@ -571,8 +573,8 @@ export default function IndexPage({ path }): JSX.Element {
             &copy; {new Date().getFullYear()} USAMO Guide.
             <br />
             No part of this website may be reproduced or commercialized in any manner without prior written permission.{' '}
-            <Link to="/license" style={linkStyle}>
-              Learn More.
+            <Link to="https://usamoguide.com/license.txt" style={linkStyle}>
+              License
             </Link>
             {' | '}
             <Link to="/privacy-policy" style={linkStyle}>

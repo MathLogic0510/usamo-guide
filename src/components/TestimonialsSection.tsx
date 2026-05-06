@@ -1,0 +1,230 @@
+import React from 'react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+
+const MIDNIGHT = '#201C36';
+const MIDNIGHT_DEEP = '#14112A';
+const VANILLA = '#F4EDEA';
+const TEXT_SECONDARY = 'rgba(244, 237, 234, 0.78)';
+
+interface Testimonial {
+  name: string;
+  role: string;
+  content: string;
+}
+
+const testimonials: Testimonial[] = [
+  {
+    name: "Sohil Rathi",
+    role: "Author of OmegaLearn",
+    content: "The USAMO Guide is an incredible resource for competitive math. The way it structures problems by difficulty and topic is exactly what students need to progress efficiently."
+  },
+  {
+    name: "Alexandar",
+    role: "YIMO Founder",
+    content: "A comprehensive and well-organized platform that brings together the best of competitive math education. The community-driven approach sets it apart from other resources."
+  },
+  {
+    name: "Lalith",
+    role: "Community Member & Contributor",
+    content: "I started as a learner on this platform and the quality of explanations helped me level up. Now I'm thrilled to give back and contribute to help others on their journey."
+  },
+];
+
+const TestimonialsSection = () => {
+  const trackRef = React.useRef<HTMLDivElement>(null);
+  const firstSetRef = React.useRef<HTMLDivElement>(null);
+  const firstCardRef = React.useRef<HTMLDivElement>(null);
+  const setWidthRef = React.useRef(0);
+  const offsetRef = React.useRef(0);
+  const rafRef = React.useRef<number>();
+  const lastTsRef = React.useRef<number | null>(null);
+  const [isPaused, setIsPaused] = React.useState(false);
+
+  const normalizeOffset = React.useCallback(() => {
+    const setWidth = setWidthRef.current;
+    if (setWidth <= 0) return;
+    offsetRef.current = ((offsetRef.current % setWidth) + setWidth) % setWidth;
+  }, []);
+
+  const applyTransform = React.useCallback(() => {
+    if (!trackRef.current || setWidthRef.current <= 0) return;
+    // Keep the middle copy as the visible base; wrap by one set width for seamless looping.
+    trackRef.current.style.transform = `translate3d(${-setWidthRef.current - offsetRef.current}px, 0, 0)`;
+  }, []);
+
+  const measure = React.useCallback(() => {
+    if (!firstSetRef.current) return;
+    setWidthRef.current = firstSetRef.current.offsetWidth;
+    normalizeOffset();
+    applyTransform();
+  }, [applyTransform, normalizeOffset]);
+
+  const stepByOneCard = React.useCallback((direction: 'next' | 'back') => {
+    const fallback = 640 + 32;
+    const step = (firstCardRef.current?.offsetWidth ?? fallback) + 32;
+    offsetRef.current += direction === 'next' ? step : -step;
+    normalizeOffset();
+    applyTransform();
+  }, [applyTransform, normalizeOffset]);
+
+  React.useEffect(() => {
+    measure();
+    const onResize = () => measure();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [measure]);
+
+  React.useEffect(() => {
+    const SPEED_PX_PER_SEC = 14;
+    const tick = (ts: number) => {
+      if (lastTsRef.current == null) {
+        lastTsRef.current = ts;
+      }
+
+      const delta = (ts - lastTsRef.current) / 1000;
+      lastTsRef.current = ts;
+
+      if (!isPaused && setWidthRef.current > 0) {
+        offsetRef.current += SPEED_PX_PER_SEC * delta;
+        normalizeOffset();
+        applyTransform();
+      }
+
+      rafRef.current = window.requestAnimationFrame(tick);
+    };
+
+    rafRef.current = window.requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) {
+        window.cancelAnimationFrame(rafRef.current);
+      }
+      lastTsRef.current = null;
+    };
+  }, [applyTransform, isPaused, normalizeOffset]);
+
+  return (
+    <div
+      className="relative overflow-hidden transition-colors duration-500 py-16 md:py-24 font-sans"
+      style={{
+        background: `linear-gradient(180deg, ${MIDNIGHT} 0%, ${MIDNIGHT_DEEP} 100%)`,
+        color: VANILLA,
+      }}
+    >
+      <div className="px-4 sm:px-6 lg:px-8 2xl:px-16">
+        {/* Section Title */}
+        <div className="mb-12 text-center">
+          <div className="mb-2">
+            <h2 
+              className="text-4xl md:text-5xl 2xl:text-6xl font-black tracking-tight"
+              style={{ color: VANILLA }}
+            >
+              What Our Users
+            </h2>
+            <p 
+              className="text-4xl md:text-5xl 2xl:text-6xl font-black italic tracking-tight mt-1"
+              style={{ color: 'rgba(240, 194, 255, 0.85)' }}
+            >
+              Are Saying
+            </p>
+          </div>
+          <p 
+            className="text-base md:text-lg mt-4"
+            style={{ color: TEXT_SECONDARY }}
+          >
+            Stop juggling different resources. Get comprehensive math education and community support in one platform.
+          </p>
+        </div>
+
+        {/* Infinite marquee with centered card + side peeks */}
+        <div className="relative w-full mt-10">
+          <div
+            className="absolute inset-y-0 left-0 w-16 md:w-28 pointer-events-none z-20"
+            style={{ background: `linear-gradient(to right, ${MIDNIGHT_DEEP}, transparent)` }}
+          />
+          <div
+            className="absolute inset-y-0 right-0 w-16 md:w-28 pointer-events-none z-20"
+            style={{ background: `linear-gradient(to left, ${MIDNIGHT_DEEP}, transparent)` }}
+          />
+
+          <div
+            className="overflow-hidden"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <div
+              ref={trackRef}
+              className="flex w-max will-change-transform"
+              style={{
+                paddingLeft: 'max(1rem, calc(50vw - 320px))',
+                paddingRight: 'max(1rem, calc(50vw - 320px))',
+              }}
+            >
+              {[0, 1, 2].map((copyIndex) => (
+                <div key={copyIndex} ref={copyIndex === 0 ? firstSetRef : undefined} className="flex gap-8 pr-8">
+                  {testimonials.map((testimonial, idx) => (
+                    <div
+                      key={`${copyIndex}-${idx}`}
+                      ref={copyIndex === 1 && idx === 0 ? firstCardRef : undefined}
+                      className="flex-shrink-0 w-[78vw] md:w-[66vw] lg:w-[640px] min-h-[180px] p-5 md:p-6 flex flex-col justify-between"
+                      style={{
+                        borderBottom: '1px solid rgba(229, 194, 255, 0.12)',
+                      }}
+                    >
+                      <p className="text-xl md:text-[1.9rem] leading-relaxed" style={{ color: TEXT_SECONDARY }}>
+                        “{testimonial.content}”
+                      </p>
+
+                      <div
+                        className="h-px w-full mt-4"
+                        style={{ background: 'rgba(240, 240, 240, 0.06)' }}
+                      />
+
+                      <div className="mt-3">
+                        <p className="text-2xl md:text-3xl font-semibold tracking-tight" style={{ color: VANILLA }}>
+                          {testimonial.name}
+                        </p>
+                        <p className="text-base mt-1" style={{ color: 'rgba(240, 194, 255, 0.62)' }}>
+                          {testimonial.role}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-8 flex items-center justify-center gap-4">
+            <button
+              type="button"
+              onClick={() => stepByOneCard('back')}
+              className="flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-200 hover:bg-white/10"
+              style={{ borderColor: 'rgba(229, 194, 255, 0.28)' }}
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeftIcon className="h-5 w-5" style={{ color: VANILLA }} />
+            </button>
+            <button
+              type="button"
+              onClick={() => stepByOneCard('next')}
+              className="flex h-11 w-11 items-center justify-center rounded-full border transition-colors duration-200 hover:bg-white/10"
+              style={{ borderColor: 'rgba(229, 194, 255, 0.28)' }}
+              aria-label="Next testimonial"
+            >
+              <ChevronRightIcon className="h-5 w-5" style={{ color: VANILLA }} />
+            </button>
+          </div>
+        </div>
+
+        {/* Ambient glow effect */}
+        <div 
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full blur-[120px] pointer-events-none -z-10"
+          style={{ backgroundColor: 'rgba(112, 66, 138, 0.15)' }}
+        />
+      </div>
+
+    </div>
+  );
+};
+
+export default TestimonialsSection;

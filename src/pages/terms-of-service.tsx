@@ -45,7 +45,7 @@ export default function TermsOfServicePage(props: PageProps) {
             Use of site materials is subject to our license and usage terms.
             For details, see the{' '}
             <Link
-              to="/license"
+              to="https://www.usamoguide.com/license.txt"
               className="text-[#F0C2FF] underline hover:text-[#F4EDEA]"
             >
               License and Usage page
