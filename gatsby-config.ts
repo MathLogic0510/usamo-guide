@@ -24,10 +24,22 @@ const siteUrl = (
 
 const siteMetadata = {
   title: `USAMO Guide`,
-  description: `A comprehensive, free learning platform for AMC 8, AMC 10/12, AIME, and USAMO mathematics. Organized lessons, worked examples, and curated problem sets with full solutions.`,
+  siteName: `USAMO Guide`,
+  description: `Free, comprehensive preparation for AMC 8, AMC 10/12, AIME, and USAMO math. Learn with organized lessons, curated problem sets, and full solutions.`,
   author: `@usamoguide`,
   siteUrl,
-  keywords: ['USAMO', 'AIME', 'AMC 10', 'AMC 12', 'AMC 8', 'Math Contest'],
+  locale: `en_US`,
+  twitterUsername: `@usamoguide`,
+  keywords: [
+    'USAMO',
+    'AIME',
+    'AMC 10',
+    'AMC 12',
+    'AMC 8',
+    'olympiad math',
+    'math contest',
+    'proof writing',
+  ],
 };
 
 const plugins = [
@@ -92,7 +104,17 @@ const plugins = [
   {
     resolve: `gatsby-plugin-sitemap`,
     options: {
-      excludes: ['/404', '/404.html', '/dev-404-page', '/offline-plugin-app-shell-fallback'],
+      excludes: [
+        '/404',
+        '/404.html',
+        '/auth',
+        '/auth/callback',
+        '/dashboard',
+        '/dev-404-page',
+        '/offline-plugin-app-shell-fallback',
+        '/settings',
+        '/test',
+      ],
     },
   },
   {

@@ -587,11 +587,31 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
     'http://localhost:8000';
   const baseUrl = envSiteUrl || result.data?.site?.siteMetadata?.siteUrl;
 
+  const excludedPathPrefixes = [
+    '/404',
+    '/auth',
+    '/dashboard',
+    '/dev-404-page',
+    '/offline-plugin-app-shell-fallback',
+    '/settings',
+    '/test',
+  ];
+  const shouldIndexPath = (pathname: string) => {
+    if (pathname === '/') {
+      return true;
+    }
+
+    const normalizedPath = pathname.replace(/\/+$/, '') || '/';
+    return !excludedPathPrefixes.some(
+      prefix => normalizedPath === prefix || normalizedPath.startsWith(`${prefix}/`)
+    );
+  };
+
   const rawPaths = (result.data?.allSitePage?.nodes || [])
     .map(node => node?.path)
     .filter(Boolean);
   const filteredPaths = rawPaths.filter(
-    path => !path.startsWith('/api/') && path !== '/dev-404-page/'
+    path => path.startsWith('/api/') === false && shouldIndexPath(path)
   );
   const uniquePaths = Array.from(new Set(filteredPaths));
   const urls = uniquePaths.length ? uniquePaths : ['/'];

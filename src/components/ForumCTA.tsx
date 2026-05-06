@@ -11,17 +11,17 @@ const ForumCTA = (): JSX.Element => {
     >
       <div className="px-4 py-5 text-center sm:p-6">
         <h3 className="text-lg leading-6 font-semibold font-mono" style={{ color: '#F4EDEA' }}>
-          Join the AoPS Community!
+          Join the Discord Community!
         </h3>
         <div className="mx-auto mt-2 max-w-xl text-sm leading-5" style={{ color: 'rgba(244,237,234,0.72)' }}>
           <p>
-            Stuck on a problem, or don't understand a module? Join the AoPS
-            community and get help from other math contest students.
+            Stuck on a problem, or don't understand a module? Join the Discord
+            and get help with your doubts while making more math friends.
           </p>
         </div>
         <div className="mt-5 flex justify-center">
           <a
-            href="https://artofproblemsolving.com/community"
+            href="https://discord.gg/X2zx6u53XH"
             target="_blank"
             rel="noreferrer"
             className="purple-motion-effect inline-flex items-center justify-center rounded-full px-6 py-2.5 font-mono text-sm font-bold leading-tight"
@@ -34,7 +34,7 @@ const ForumCTA = (): JSX.Element => {
               '--pme-wipe-bg': '#F0C2FF',
             } as React.CSSProperties}
           >
-            Join AoPS
+            Join Discord
           </a>
         </div>
       </div>

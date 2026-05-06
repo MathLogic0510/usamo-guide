@@ -246,7 +246,7 @@ export default function DashboardPage(props: PageProps) {
 
   return (
     <Layout>
-      <SEO title="Dashboard" image={null} pathname={props.path} />
+      <SEO title="Dashboard" image={null} pathname={props.path} noIndex />
 
       <div
         data-page-tone="dark"

@@ -15,32 +15,53 @@ const TEXT_SECONDARY = 'rgba(244, 237, 234, 0.78)';
 const headerClasses =
   'text-4xl md:text-5xl 2xl:text-6xl font-black tracking-tight text-center';
 const subtextClasses =
-  'text-lg md:text-xl 2xl:text-2xl font-medium max-w-4xl leading-relaxed text-center';
+  'text-base md:text-lg 2xl:text-xl font-medium max-w-4xl leading-relaxed text-center';
 
 const projects = [
   {
-    title: "Weekly Mock Contests",
+    title: "Competition Arena",
     icon: CalendarCheck,
     imageSrc: '/images/weekly_mock_contests.jpg',
     color: "from-[#C79CDA] via-[#9A6BB7] to-[#70428A]",
-    desc: "Join guided sessions focused on problem solving, solution writing, and proof critique. Led by top performers to help you master competition-level rigor.",
+    desc: "Timed contests modeled after real competitions. Score reflects accuracy and pacing. Detailed solutions and performance analytics after each contest. Track improvement over time.",
+    bulletPoints: [
+      "• AMC 8, 10/12, and AIME-style contests",
+      "• Scored based on correct answers and time",
+      "• Real-time pacing and solution feedback",
+      "• Performance analytics and weakness detection",
+      "• Archive of past contests for practice"
+    ],
     url: "https://contests.usamoguide.com/",
   },
   {
-    title: "Study Groups",
-    icon: UserGroupIcon, // Swapped to UserGroup for better context
+    title: "Master the Math",
+    icon: UserGroupIcon,
     imageSrc: '/images/aops_comm.jpg',
     color: "from-[#D8B4E8] via-[#AA79C4] to-[#7B4B99]",
-    desc: "A custom-built learning management system designed specifically for math clubs, classes, and competitive teams to track progress together. (Coming Soon!)",
-    url: "/groups"
+    desc: "Comprehensive learning materials organized by skill level and topic. From foundations to USAMO-level problems. Each module includes theory, worked examples, and thousands of curated practice problems.",
+    bulletPoints: [
+      "• 4 difficulty levels: Foundations, Intermediate, Advanced, USAMO",
+      "• 8 math topics: Algebra, Geometry, Number Theory, Combinatorics, and more",
+      "• Detailed theory explanations with visualizations",
+      "• Extensive curated problem sets for every concept",
+      "• Progressive structure from basics to Olympiad-level"
+    ],
+    url: "/problems"
   },
   {
-    title: "Mentorship",
+    title: "Problem Vault",
     icon: CogIcon,
     imageSrc: '/images/mentorship.jpg',
     color: "from-[#F0C2FF] via-[#B98CD1] to-[#70428A]",
-    desc: "Get paired with experienced mentors for direct feedback on your solutions, personalized study plans, and guidance through the contest circuit. (Coming Soon!)",
-    url: "/groups"
+    desc: "Unlimited problem drilling organized by topic, difficulty, and source. Filter by contest type, focus on weak areas, and build confidence through targeted practice.",
+    bulletPoints: [
+      "• Thousands of problems across all difficulty levels",
+      "• Filter by topic, source (AMC/AIME/USAMO), and difficulty",
+      "• Track completion status and progress",
+      "• View detailed solutions and official answers",
+      "• Create custom problem sets for focused drilling"
+    ],
+    url: "/problems"
   }
 ];
 
@@ -67,10 +88,9 @@ const ActiveCardsHome = () => {
               <h2 className={headerClasses} style={{ color: VANILLA }}>
                 Built by the USAMO Guide community.
               </h2>
-              <div className="h-2 md:h-8"></div>
+              <div className="h-2 md:h-4"></div>
               <p className={classNames(subtextClasses, 'mx-auto')} style={{ color: TEXT_SECONDARY }}>
-                Here are a few resources and study tools that pair well with the
-                guide.
+                Free roadmap for AMC 8, AMC 10/12, AIME, and USAMO/USAJMO organized by level and difficulty.
               </p>
 
               <div className="h-12 md:h-16 2xl:h-24"></div>
@@ -131,21 +151,6 @@ const ActiveCardsHome = () => {
                                 style={{ color: activeCard === id ? MAUVE : 'rgba(244, 237, 234, 0.38)' }}
                             />
                         </div>
-                        <AnimatePresence>
-                            {activeCard === id && (
-                                <motion.div
-                                    initial={{height:0, opacity:0}}
-                                    animate={{height:'auto', opacity:1}}
-                                    exit={{height:0, opacity:0}}
-                                    className="overflow-hidden"
-                                >
-                                    <p className='line-clamp-3 px-6 pb-6 text-sm leading-relaxed' style={{ color: TEXT_SECONDARY }}>
-                                        {project.desc}
-                                    </p>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-
                     </div>
                 ))}
               </div>
@@ -186,6 +191,16 @@ const ActiveCardsHome = () => {
                   <p className="w-full text-xl font-medium" style={{ color: TEXT_SECONDARY }}>
                         {projects[activeCard].desc}
                     </p>
+
+                    {projects[activeCard].bulletPoints && (
+                      <div className="mt-6 space-y-2">
+                        {projects[activeCard].bulletPoints.map((point, idx) => (
+                          <p key={idx} className="text-base" style={{ color: TEXT_SECONDARY }}>
+                            {point}
+                          </p>
+                        ))}
+                      </div>
+                    )}
 
                     </div>
 
